@@ -6,10 +6,13 @@
 using namespace std;
 using namespace __gnu_pbds;
 
-typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> pbds; // find_by_order, order_of_key
+typedef tree<int, null_type, less<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set; // find_by_order, order_of_key
+        // data type         // greater / less_equal -> comparator 
+        // to be stored 
+        // in the ordered_set          
 
 int main() {
-	pbds A; // declaration
+	ordered_set A; // declaration
 
 	// Inserting elements - 1st query
 	A.insert(1);
@@ -51,6 +54,8 @@ int main() {
 	// // Remove elements - 2nd query
 	A.erase(1);
 	A.erase(11); // element that is not present is not affected
+
+    // all these above functions take log(n) TC
 
 	// A contains
 	cout << "A = ";
