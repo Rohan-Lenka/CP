@@ -21,6 +21,8 @@ int main() {
 	A.insert(7);
 	A.insert(2);  // ordered set only contains unique values
 
+    cout << A.size() << "\n"; // for size, TC = O(1)
+
 	// A contains
 	cout << "A = ";
 	for (auto i : A)
@@ -64,3 +66,17 @@ int main() {
 	cout << endl;
 
 }
+
+// NOTE -> 
+// never do A.order_of_key(val) - A.begin() // error // reason pbds is not same as STL
+
+// for greater type ordered_set -> 
+/*
+   typedef tree<int, null_type, greater<int>, rb_tree_tag, tree_order_statistics_node_update> ordered_set; 
+   // greater means elements in descending order
+   // greater_equal or less_equal means no removal of duplicates from the set
+   // for greater ->
+   A.order_of_key(val) // returns number of elements STRICTLY GREATER than val
+   
+   int random(ordered_set &os) { // } // always pass by reference for avoidng TLE 
+*/
