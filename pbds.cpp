@@ -80,3 +80,25 @@ int main() {
    
    int random(ordered_set &os) { // } // always pass by reference for avoidng TLE 
 */
+
+// How to pass a custom comparator to an ordered_set ?
+// u cant pass a traditional bool static cmp() {...} comparator to an ordered_set
+// instead u can pass a struct as a comparator ->
+/*
+	struct custom_compare {
+		bool operator()(const <data_type>, const <data_type>) const {
+			// ur logic
+		}
+	};
+	typedef tree<<data_type>, null_type, custom_compare, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
+*/
+// Ex -> 
+// struct custom_compare {
+//     bool operator()(const pair<int, string>& a, const pair<int, string>& b) const {
+//         if (a.first == b.first)
+//             return a.second < b.second;  // Sort by second value if first values are equal
+//         return a.first < b.first;  // Otherwise, sort by first value
+//     }
+// };
+// // Define ordered_set with custom comparator
+// typedef tree<pair<int, string>, null_type, custom_compare, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
