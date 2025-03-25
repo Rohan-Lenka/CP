@@ -55,7 +55,8 @@ int main() {
 
 	// // Remove elements - 2nd query
 	A.erase(1);
-	A.erase(11); // element that is not present is not affected
+	A.erase(11); // element that is not present is not affected 
+	// only one instance is erased, not all if the odrered_set contains dupliactes
 
     // all these above functions take log(n) TC
 
