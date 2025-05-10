@@ -53,6 +53,9 @@ int main() {
 	cout << "Upper Bound of 1: " << *A.upper_bound(1) << endl;
 	cout << endl;
 
+	// use only os.lower_bound() & os.upper_bound() for getting the iterator 
+	// returns os.end() in case of out of bounds in these functions 
+
 	// // Remove elements - 2nd query
 	A.erase(1);
 	A.erase(11); // element that is not present is not affected 

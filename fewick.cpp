@@ -32,7 +32,7 @@ public:
     int rangeQuery(int l, int r) {
         return query(r + 1) - query(l);
     }
-}
+};
 
 int main() {
     
