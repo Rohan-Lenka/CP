@@ -1,4 +1,4 @@
-struct Node{
+struct Node {
     Node* links[26];
     bool flag = false;
 };
@@ -13,8 +13,8 @@ public:
     
     void insert(string word) {
         Node* node = root;
-        for(char c : word){
-            if(node->links[c - 'a'] == NULL){
+        for(char c : word) {
+            if(node->links[c - 'a'] == NULL) {
                 node->links[c - 'a'] = new Node();
             }
             node = node->links[c - 'a'];
@@ -24,7 +24,7 @@ public:
     
     bool search(string word) {
         Node* node = root;
-        for(char c : word){
+        for(char c : word) {
             if(!node->links[c - 'a']) return false;
             node = node->links[c - 'a'];
         }
@@ -33,7 +33,7 @@ public:
     
     bool startsWith(string prefix) {
         Node* node = root;
-        for(char c : prefix){
+        for(char c : prefix) {
             if(!node->links[c - 'a']) return false;
             node = node->links[c - 'a'];
         }
