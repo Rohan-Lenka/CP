@@ -1,10 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
-using ll = long long;
 
+using ll = long long;
 const int MOD1 = 1e9 + 7, MOD2 = 1e9 + 9;
 const int BASE = 131;
-
 struct PalindromeChecker {
     int n;
     vector<ll> hash1, hash2, rev_hash1, rev_hash2, pow1, pow2;

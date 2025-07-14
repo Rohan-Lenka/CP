@@ -1,6 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+int findGCD(int a, int b) {
+    // euclidean algorithm 
+    while(a > 0 && b > 0) {
+        if(a > b) a = a % b;
+        else b = b % a;
+    }
+    if(!a) return b;
+    return a;
+    // TC = O(log(min(a, b)))
+    // SC = O(1)
+}
+
 bool isPrime(int num) {
     if(num < 2) return false; // edge case for 0 & 1
     for(int i = 2; i * i <= num; i++) {
