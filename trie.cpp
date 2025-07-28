@@ -11,9 +11,9 @@ public:
         root = new Node();   
     }
     
-    void insert(string word) {
+    void insert(string &word) {
         Node* node = root;
-        for(char c : word) {
+        for(char &c : word) {
             if(node->links[c - 'a'] == NULL) {
                 node->links[c - 'a'] = new Node();
             }
@@ -22,18 +22,18 @@ public:
         node->flag = true;
     }
     
-    bool search(string word) {
+    bool search(string &word) {
         Node* node = root;
-        for(char c : word) {
+        for(char &c : word) {
             if(!node->links[c - 'a']) return false;
             node = node->links[c - 'a'];
         }
         return node->flag;
     }
     
-    bool startsWith(string prefix) {
+    bool startsWith(string &prefix) {
         Node* node = root;
-        for(char c : prefix) {
+        for(char &c : prefix) {
             if(!node->links[c - 'a']) return false;
             node = node->links[c - 'a'];
         }
