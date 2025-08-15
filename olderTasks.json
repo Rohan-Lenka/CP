@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Compile and run (2s limit)",
+            "label": "Compile and run",
             "type": "shell",
             "command": "",
             "args": [
@@ -15,9 +15,11 @@
                 "-o",
                 "jspwTest",
                 "&&",
-                "powershell",
-                "-Command",
-                "Start-Process ./jspwTest -RedirectStandardInput input.txt -RedirectStandardOutput output.txt -NoNewWindow; $p = Get-Process jspwTest; if ($p) { Wait-Process -Id $p.Id -Timeout 2 -ErrorAction SilentlyContinue; if (!$p.HasExited) { Stop-Process -Id $p.Id; Write-Host '⏳ Time limit exceeded'; } }",
+                "jspwTest",
+                "<",
+                "input.txt",
+                ">",
+                "output.txt",
                 "&&",
                 "del",
                 "jspwTest.exe",
