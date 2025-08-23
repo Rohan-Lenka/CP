@@ -29,7 +29,7 @@
 			"#define ff first",
 			"#define ss second",
 			"#define all(x) (x).begin(), (x).end()",
-			"#define rall(x) (x).rbegin(), (x).rend()",
+			"#define rall(x) (x).begin(), (x).rend()",
 			"#define rrev(x) reverse((x).rbegin(), (x).end())",
 			"#define fori(i, start, limit) for(int i = start; i <= limit; i++)",
 			"#define ford(i, start, limit) for(int i = start; i >= limit; i--)",
