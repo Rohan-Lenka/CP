@@ -3,26 +3,35 @@ using namespace std;
 
 class SparseTable {
 private:
-    static const int MAXN = 100001;
-    static const int MAX_LOG = 17; // Since log2(1e5) ≈ 16.6
     int n;
-    int a[MAXN][MAX_LOG];
+    int maxLog; 
+    vector<vector<int>> a;
+
+    // older -> 
+    // static const int MAXN = 100001;
+    // static const int MAX_LOG = 17; // Since log2(1e5) ≈ 16.6
+    // int n;
+    // int a[MAXN][MAX_LOG];
 
 public:
     int inline operation(int n1, int n2) {
-        return // perform your operation here
+        return ;// perform your operation here
     }
 
     void build(vector<int> &nums) {
         n = nums.size();
+        maxLog = 32 - __builtin_clz(n);           
+        a.assign(n, vector<int>(maxLog));         
+
         // pre-processing for power == 0 -> 
         for(int i = 0; i < n; i++) {
             a[i][0] = nums[i];
         }
-        // rest pre-processing ->
-        for(int power = 1; power < MAX_LOG; power++) {
-            for(int i = 0; i <= (n - (1 << power)); i++) {
-                a[i][power] = operation(a[i][power - 1], a[i + (1 << (power - 1))][power - 1]);
+        // rest pre-processing -> 
+        for(int power = 1; power < maxLog; power++) {    
+            for(int i = 0; i + (1 << power) <= n; i++) {  // <-- safer loop condition
+                a[i][power] = operation(a[i][power - 1],
+                                        a[i + (1 << (power - 1))][power - 1]);
             }
         }
     }
@@ -30,10 +39,12 @@ public:
     int query(int l, int r) {
         int len = r - l + 1;
         int log2len = 31 - __builtin_clz(len);
-        return operation(a[l][log2len], a[r - (1 << log2len) + 1][log2len]);
+        return operation(a[l][log2len],
+                         a[r - (1 << log2len) + 1][log2len]);
     }
 
 };
+
 
 int main() {
     ios_base::sync_with_stdio(false);
@@ -51,5 +62,6 @@ int main() {
     // cons ->
     // takes more SC
     // operation must be idempotent (sparse tables cant be applied for sum, product, etc)
+    // no update possible 
     return 0;
 }
