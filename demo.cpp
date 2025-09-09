@@ -5,6 +5,11 @@ using namespace std;
 #define ld long double
 #define vi vector<int>
 #define vll vector<long long>
+#define vd vector<double>
+#define vstr vector<string>
+#define vvi vector<vector<int>>
+#define vvll vector<vector<long long>>
+#define vvstr vector<vector<string>>
 #define add push_back
 #define del pop_back
 #define sz(x) ((int)(x).size())
@@ -14,7 +19,7 @@ using namespace std;
 #define ss second
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
-#define rrev(x) reverse((x).rbegin(), (x).end())
+#define rrev(x) reverse((x).begin(), (x).end())
 #define fori(i, start, limit) for(int i = start; i <= limit; i++)
 #define ford(i, start, limit) for(int i = start; i >= limit; i--)
 
