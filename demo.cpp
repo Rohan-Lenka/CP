@@ -6,6 +6,7 @@ using namespace std;
 #define ld long double
 #define pii pair<int, int>
 #define pll pair<long long, long long>
+#define vb vector<bool>
 #define vi vector<int>
 #define vll vector<long long>
 #define vd vector<double>
