@@ -1,6 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+/*
+    Always do this when you are performing modulo and also doing subtraction
+    example -> 
+    ll a = myPow(n, k1, MOD); ll b = myPow(n, k2, MOD);
+    if u are doing ll c = (a - b) % MOD; then this can be wrong when a < b, i.e negative ans
+    as by doing % MOD gives u remainder, ll a can be a lower remainder while ll b be a higher one
+    so to avoid this always do -> 
+    ll c = (a - b + MOD) % MOD    
+*/
+
 int findGCD(int a, int b) {
     // euclidean algorithm 
     while(a > 0 && b > 0) {
