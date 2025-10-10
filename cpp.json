@@ -61,8 +61,8 @@
 	"input": {
 		"prefix": "input",
 		"body": [
-			"int T; cin >> T;",
-			"while(T--) {",
+			"int tt; cin >> tt;",
+			"while(tt--) {",
 			"\t$0",
 			"}"
 		],
