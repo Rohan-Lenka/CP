@@ -51,7 +51,8 @@
 
 			"\nint main() {",
 			"\tios_base::sync_with_stdio(false);",
-			"\tcin.tie(NULL);",
+			"\tcin.tie(0);",
+			"\tcout.tie(0);",
 			"\t$0",
 			"\treturn 0;",
 			"}"
