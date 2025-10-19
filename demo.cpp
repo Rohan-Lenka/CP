@@ -15,7 +15,7 @@ using namespace std;
 #define vvll vector<vector<long long>>
 #define vvstr vector<vector<string>>
 #define vpii vector<pair<int, int>>
-#define vpll vector<pair<long, long>>
+#define vpll vector<pair<ll, ll>>
 #define add push_back
 #define del pop_back
 #define sz(x) ((int)(x).size())
