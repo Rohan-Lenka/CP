@@ -1,11 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class DisjointSet {
+class DSU {
 
 public:
     vector<int> parent, Size;
-    DisjointSet(int v) {
+    DSU(int v) {
         Size.resize(v);
         parent.resize(v);
         for (int i = 0; i < v; i++) {
@@ -20,7 +20,7 @@ public:
         return parent[u] = findPar(parent[u]);
     }
 
-    void UnionbySize(int u, int v) {
+    void unionBySize(int u, int v) {
         int UP_u = findPar(u);
         int UP_v = findPar(v);
         if (UP_u == UP_v)
