@@ -24,6 +24,10 @@ ll fx1(int job, int mask, vector<vector<ll>> &cost, vector<vector<ll>> &dp, int 
 // 1) mask in binary -> ith bit -> == 0 means ith person not available & vice versa
 // 2) initially mask = (1 << n) - 1 coz all n people should be available 
 
+// 2) Digit dp
+// Q type -> Given a range [l, r] find how many numbers are present in [l, r] 
+// which satisfy a certain condition. 0 <= l, r <= 1e18
+
 int main() {
     
     return 0;
