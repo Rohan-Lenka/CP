@@ -71,10 +71,10 @@
 			"    cin.tie(0);",
 			"    cout.tie(0);",
 			"    bool testsExist = true;",
-			"    int tt; cin >> tt;",
-			"    if(!testsExist) tt = 1;",
+			"    int tt = 1;",
+			"    if(testsExist) cin >> tt;",
 			"    while(tt--) {",
-			"        ",
+			"        $0",
 			"    }",
 			"    return 0;",
 			"}"
