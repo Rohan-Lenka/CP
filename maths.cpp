@@ -75,6 +75,7 @@ vector<int> getPrimeFactors(int num) {
 vector<bool> sieveOfEratosthenes(int n) {  // all primes upto n 
     vector<int> res;
     vector<bool> isPrime(n + 1, true);
+    isPrime[0] = false; isPrime[1] = false;
     for(int i = 2; i * i <= n; i++) {  // i * i -> 2nd further optimization
         if(isPrime[i]) {
             for(int j = i * i; j <= n; j += i) isPrime[j] = false;
@@ -90,6 +91,22 @@ vector<bool> sieveOfEratosthenes(int n) {  // all primes upto n
     // TC -> O(n * log(log(n))) + O(n) // reason -> prime harmonic series
     // SC -> O(n)
 }
+
+vector<int> fastSieve(int n) {
+    vector<int> primes;
+    vector<bool> isPrime(n + 1, true);
+    isPrime[0] = false; isPrime[1] = false;
+    for (int i = 2; i <= n; i++) {
+        if (isPrime[i]) primes.push_back(i);
+        for (int p : primes) {
+            if (i * p > n) break;
+            isPrime[i * p] = false;
+            if (i % p == 0) break;
+        }
+    }
+    return primes;
+}
+// TC = SC = O(n)
 
 // Query based functions ->
 vector<int> countPrimes(vector<pair<int, int>> &queries) {
