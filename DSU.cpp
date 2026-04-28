@@ -4,33 +4,33 @@ using namespace std;
 class DSU {
 
 public:
-    vector<int> parent, Size;
+    vector<int> par, sz;
     DSU(int v) {
-        Size.resize(v);
-        parent.resize(v);
-        for (int i = 0; i < v; i++) {
-            Size[i] = 1;
-            parent[i] = i;
+        sz.resize(v);
+        par.resize(v);
+        for(int i = 0; i < v; i++) {
+            sz[i] = 1;
+            par[i] = i;
         }
     }
 
     int findPar(int u) {
-        if (parent[u] == u)
+        if(par[u] == u)
             return u;
-        return parent[u] = findPar(parent[u]);
+        return par[u] = findPar(par[u]);
     }
 
     void unionBySize(int u, int v) {
         int UP_u = findPar(u);
         int UP_v = findPar(v);
-        if (UP_u == UP_v)
+        if(UP_u == UP_v)
             return;
-        if (Size[UP_u] < Size[UP_v]) {
-            parent[UP_u] = UP_v;
-            Size[UP_v] += Size[UP_u];
+        if(sz[UP_u] < sz[UP_v]) {
+            par[UP_u] = UP_v;
+            sz[UP_v] += sz[UP_u];
         } else {
-            parent[UP_v] = UP_u;
-            Size[UP_u] += Size[UP_v];
+            par[UP_v] = UP_u;
+            sz[UP_u] += sz[UP_v];
         }
     }
 };
