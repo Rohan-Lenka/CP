@@ -195,7 +195,7 @@ namespace binary_trie {
                 int k = (K >> i) & 1;
 
                 if(k == 1) {
-                    if (node->ch[b]) res += node->ch[b]->cnt;
+                    if(node->ch[b]) res += node->ch[b]->cnt;
                     node = node->ch[1 - b];
                 } else {
                     node = node->ch[b];
@@ -204,6 +204,28 @@ namespace binary_trie {
             
             return res;
         }
+
+        int countGreater(int num, int K) {
+            Node* node = root;
+            int res = 0;
+
+            for(int i = LOG; i >= 0; i--) {
+                if(!node) break;
+                
+                int b = (num >> i) & 1;
+                int k = (K >> i) & 1;
+
+                if(!k) {
+                    if(node->ch[1 - b]) res += node->ch[1 - b]->cnt;
+                    node = node->ch[b];
+                } else {
+                    node = node->ch[1 - b];
+                }
+            }
+            
+            return res;
+        }
+
     };
 
 }

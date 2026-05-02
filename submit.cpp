@@ -50,6 +50,8 @@ inline void no() { cout << "NO" << '\n'; }
 
 template <typename T> inline void printArray(const vector<T> &arr) { cout << '[' << ' '; for(const T& el : arr) cout << el << ' '; cout << ']'; cout << '\n'; }
 
+void solve() {}
+
 signed main() {
     ios_base::sync_with_stdio(false);
     cin.tie(0);
