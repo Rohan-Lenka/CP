@@ -1,37 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-/*
-    Always do this when you are performing modulo and also doing subtraction
-    example -> 
-    ll a = myPow(n, k1, MOD); ll b = myPow(n, k2, MOD);
-    if u are doing ll c = (a - b) % MOD; then this can be wrong when a < b, i.e negative ans
-    as by doing % MOD gives u remainder, ll a can be a lower remainder while ll b be a higher one
-    so to avoid this always do -> 
-    ll c = (a - b + MOD) % MOD    
-*/
-
-/*
-    FERMAT'S LITTLE THEORM FOR CP -> 
-    (a / b) % MOD != (a % MOD / b % MOD) coz division itself is invalid in modular arithmatic 
-    here we have to do -> (a * modInverseOfB) % MOD 
-    where modInverseOfB = binary_exponentiation(b, MOD - 2, MOD)
-    therefore -> (a / b) % MOD = ((a % MOD) * binary_exponentiation(b, MOD - 2, MOD)) % MOD
-    This is used in many CP problems involving number theory, maths, combinatorics, etc
-    NOTE -> MOD must always be a PRIME NUMBER for this to work like MOD = 1e9 + 7, 998244353, etc 
-*/
-
-int findGCD(int a, int b) {
-    // euclidean algorithm 
-    while(a > 0 && b > 0) {
-        if(a > b) a = a % b;
-        else b = b % a;
-    }
-    if(!a) return b;
-    return a;
-    // TC = O(log(min(a, b)))
-    // SC = O(1)
-}
 
 bool isPrime(int num) {
     if(num < 2) return false; // edge case for 0 & 1
