@@ -23,7 +23,27 @@ using namespace std;
     NOTE -> MOD must always be a PRIME NUMBER for this to work like MOD = 1e9 + 7, 998244353, etc 
 */
 
-// 3) Euclidean algorithm 
+// 3) Legendre's Formula
+/*
+    finds the highest power of a prime that divides n! 
+    formula -> highest_power(n, p) = (n/p) + (n/p^2) + (n/p^3) + ......
+    explanation -> https://codeforces.com/topic/122957/en1
+*/
+long long legendre(long long n, long long p) {
+    long long cnt = 0;
+    while(n > 0) {
+        cnt += n / p;
+        n /= p;
+    }
+    return cnt;
+}
+
+// 4) Bertrand's postulate
+/*
+    For each positive integer x there is a prime p, inside the interval [x,2x]
+*/
+
+// 5) Euclidean algorithm 
 int findGCD(int a, int b) {
     while(a > 0 && b > 0) {
         if(a > b) a = a % b;
@@ -35,7 +55,7 @@ int findGCD(int a, int b) {
     // SC = O(1)
 }
 
-// 4) Bezout identity
+// 6) Bezout identity
 /*
     for three known integers -> a, b, c if c == gcd(a, b) then there exists
     a pair of intergers -> x, y such that ax + by = c.
@@ -43,7 +63,7 @@ int findGCD(int a, int b) {
     x, y are called bezout coefficients.
 */
 
-// 5) Extended Euclidean algorithm
+// 7) Extended Euclidean algorithm
 /*
     Used to solve the bezout identity i.e the eq -> ax + by = gcd(a, b)
     explanation -> https://www.geeksforgeeks.org/dsa/euclidean-algorithms-basic-and-extended/ 
@@ -62,7 +82,7 @@ tuple<ll, ll, ll> egcd(ll a, ll b) {
 // returns {gcd, x, y}
 // TC = o(min(a, b)) (same as euclid algo )
 
-// 6) Chinese Remainder Theorm
+// 8) Chinese Remainder Theorm
 /*
     Used to solve a system of linear congruences i.e ->
     x = r1 (mod m1)
