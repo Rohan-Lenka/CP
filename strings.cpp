@@ -3,6 +3,7 @@ using namespace std;
 
 using ll = long long;
 
+// 1) String & vector hashing 
 /***
  *
  * 64-bit hashing for vectors or strings
@@ -36,6 +37,7 @@ void init() {
 
 class PolyHash {
 private:
+    int n;
     // Remove suff vector and usage if reverse hash is not required for more speed
     vector<int64_t> pref, suff;
 
@@ -46,7 +48,7 @@ public:
     PolyHash(const vector<T>& ar) {
         if(!base_pow[0]) init();
 
-        int n = ar.size();
+        n = ar.size();
         assert(n < MAXLEN);
         pref.resize(n + 3, 0), suff.resize(n + 3, 0);
 
@@ -67,6 +69,7 @@ public:
     PolyHash(const string& s) 
         : PolyHash(vector<char>(s.begin(), s.end())) {}
 
+    // functions
     uint64_t get_hash(int l, int r) {
         int64_t h = pref[r + 1] - modmul(base_pow[r - l + 1], pref[l]);
         return h < 0 ? h + mod : h;
@@ -77,10 +80,65 @@ public:
         return h < 0 ? h + mod : h;
     }
 
+    bool isPrefixSuffix(int len) {
+        if(len <= 0 || len > n) return false;
+        return get_hash(0, len - 1) == get_hash(n - len, n - 1);
+    }
+
     bool isPalindrome(int l, int r) {
         return get_hash(l, r) == rev_hash(l, r);
     }
+
+    // Gets the Longest Common Prefix of substrings starting at l1 and l2.
+    // max_len caps the binary search (defaults to the end of the string).
+    int getLcp(int l1, int l2, int max_len = -1) {
+        if(max_len == -1) max_len = n - max(l1, l2);
+        int l = 1, r = max_len, ans = 0;
+        while(l <= r) {
+            int mid = (l + r) >> 1;
+            if(get_hash(l1, l1 + mid - 1) == get_hash(l2, l2 + mid - 1)) {
+                ans = mid;
+                l = mid + 1;
+            } else {
+                r = mid - 1;
+            }
+        }
+        return ans;
+    }
+
+    // Lexicographically compares s[l1..r1] and s[l2..r2].
+    // Returns -1 if sub1 < sub2, 0 if equal, 1 if sub1 > sub2.
+    template <typename Container>
+    int compare(int l1, int r1, int l2, int r2, const Container& s) {
+        int len1 = r1 - l1 + 1;
+        int len2 = r2 - l2 + 1;
+        int min_len = min(len1, len2);
+        int lcp = getLcp(l1, l2, min_len);
+        if(lcp == min_len) {
+            if(len1 == len2) return 0;
+            return len1 < len2 ? -1 : 1;
+        }
+        return s[l1 + lcp] < s[l2 + lcp] ? -1 : 1;
+    }
+
 };
+
+// 2) Pattern Matching (in a range [l....r])
+bool match(string &s, string &pattern, PolyHash &ph_s, PolyHash &ph_pattern, int l, int r) {
+    int m = pattern.length();
+    int range_len = r - l + 1;
+    if(l < 0 || r >= s.length() || l > r || m > range_len || m == 0) {
+        return false;
+    }
+    uint64_t target_hash = ph_pattern.get_hash(0, m - 1);
+    for(int i = l; i <= r - m + 1; i++) {
+        if(ph_s.get_hash(i, i + m - 1) == target_hash) {
+            return true; 
+        }
+    }
+    return false; 
+}
+// TC of each query = O((r - l + 1) + (1 - m)) = O(len of range - size of pattern)
 
 // Todo -> manacher's algo for longest palindromic substring of whole string 
 
