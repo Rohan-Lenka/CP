@@ -34,6 +34,10 @@ using namespace std;
 #define vmax(v) *max_element(v.begin(), v.end())
 #define vmin(v) *min_element(v.begin(), v.end())
 #define _log2(x) (64 - __builtin_clzll(x) - 1)
+template<typename T>
+using min_heap = priority_queue<T, vector<T>, greater<T>>;
+template<typename T>
+using max_heap = priority_queue<T>;
 
 const ll MOD = 998244353;
 ll modadd(ll a, ll b, ll m = MOD) { return ((a % m + b % m) % m + m) % m; }
