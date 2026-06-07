@@ -7,7 +7,9 @@ using namespace std;
 struct Node {
     // declare all vars which u will need here
     int val;
-    Node(int v = 0 /* Write the identity value here */) : val(v) {}
+    Node(int v = 0 /* Write the identity value here */) {
+        val = v;
+    }
     static Node merge(const Node &a, const Node &b) {
         return Node(/* Do your operation here */);
     }
