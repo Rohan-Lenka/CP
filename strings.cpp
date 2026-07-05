@@ -89,6 +89,55 @@ public:
         return get_hash(l, r) == rev_hash(l, r);
     }
 
+    // calc the len of the longest palindromic substr / subarr 
+    // within the range [left, right]
+    int longestPalindromicSub(int left, int right) {
+        int len = right - left + 1; 
+        if(len <= 0) return 0;     
+
+        auto chck = [&](int mid) {
+            int l = left;
+            int r = left + mid - 1;
+            while(r <= right) {
+                if(isPalindrome(l, r)) return true;
+                l++; r++;
+            }
+            return false;
+        };
+        
+        int max_len = 1;
+
+        // BS for maximum ODD length
+        int lo = 1, hi = (len % 2 == 0) ? len - 1 : len; 
+        while(lo <= hi) {
+            int mid = (lo + hi) >> 1;
+            if(mid % 2 == 0) mid++; 
+            if(mid > hi) break;
+            if(chck(mid)) {
+                max_len = max(max_len, mid);
+                lo = mid + 2; 
+            } else {
+                hi = mid - 2; 
+            }
+        }
+
+        // BS for maximum EVEN length
+        lo = 2, hi = (len % 2 == 0) ? len : len - 1;
+        while(lo <= hi) {
+            int mid = (lo + hi) >> 1;
+            if(mid % 2 != 0) mid++;
+            if(mid > hi) break;
+            if(chck(mid)) {
+                max_len = max(max_len, mid);
+                lo = mid + 2; 
+            } else {
+                hi = mid - 2; 
+            }
+        }
+        
+        return max_len;
+    }
+
     // Gets the Longest Common Prefix of substrings starting at l1 and l2.
     // max_len caps the binary search (defaults to the end of the string).
     int getLcp(int l1, int l2, int max_len = -1) {
