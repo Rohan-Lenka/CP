@@ -80,7 +80,7 @@ tuple<ll, ll, ll> egcd(ll a, ll b) {
     return {b, x, y};
 }
 // returns {gcd, x, y}
-// TC = o(min(a, b)) (same as euclid algo )
+// TC = o(min(a, b)) (same as euclid algo)
 
 // 8) Chinese Remainder Theorm
 /*
@@ -109,6 +109,90 @@ pair<ll, ll> crt(vector<ll> &r, vector<ll> &m) {
 // for a particular system of linear congruences, if the final ans is {x, lcm} other solutions are 
 // -> x +- k * lcm i.e x, x+2*lcm, x+3*lcm, etc 
 // returns {-1, -1} if no solution exists
+
+// 9) Linear Diophantine Equations 
+/*
+    If there are n constants a1, a2, a3,...an & a relation ->
+    a1x1 + a2x2 + a3x3 + ... anxn = K where a1, a2, a3,...an & K are integers,
+    and x1, x2, x3,...xn can be any integer, this is possible iff ->
+    G = gcd(a1, a2, a3,...an) & K mod(G) == 0 i.e K is divisible by G. 
+    This is basically an extension of bezout identity
+*/
+// The below function finds the base values of all xs 
+// base values means one soln for the eq
+// returns true if the eq satisfies and populates the vector x 
+// else return false  
+bool solve_lde(vector<ll> &a, ll K, vector<ll> &x) {
+    int n = a.size();
+    if(n == 0) return false;
+    vector<ll> u(n), v(n);
+    ll curr_g = a[0];
+    for(int i = 1; i < n; ++i) {
+        auto [next_g, ui, vi] = egcd(curr_g, a[i]);
+        u[i] = ui;
+        v[i] = vi;
+        curr_g = next_g;
+    }
+    if(K % curr_g != 0) {
+        return false;
+    }
+    x.assign(n, 0);
+    ll running_scale = K / curr_g;
+    for(int i = n - 1; i > 0; --i) {
+        x[i] = v[i] * running_scale;
+        running_scale *= u[i]; 
+    }
+    x[0] = running_scale;
+    return true;
+}
+// TC = O(n * log(max(ai)) & SC = O(n)
+
+// 10) Linear Diophantine Equation with 2 vars
+/*
+    src -> https://codeforces.com/topic/85512/en4
+    Eq is -> ax + by = k
+    Mainly 2 types of qs are IMP
+    i) General eq to find all solutions 
+    ii) Given a range for x and y, find no. of solutions 
+*/
+// i) 
+/*
+    General eq is ->
+    x = x0 + t * (b / g)
+    y = y0 - t * (a / g)
+    where x0, y0 are base solutions, g = gcd(a, b), t is any arbitary integer
+    NOTE -> Base solution can be found using the above code
+*/
+// ii) 
+/*
+    code -> 
+*/
+ll fd(ll a, ll b) { return a / b - ((a ^ b) < 0 && a % b); }
+ll cd(ll a, ll b) { return a / b + ((a ^ b) >= 0 && a % b); }
+void upd(ll &L, ll &R, ll mn, ll mx, ll v, ll b) {
+    ll mn_k = (v > 0) ? cd(mn - b, v) : cd(mx - b, v);
+    ll mx_k = (v > 0) ? fd(mx - b, v) : fd(mn - b, v);
+    L = max(L, mn_k);
+    R = min(R, mx_k);
+}
+ll count_sols(ll a, ll b, ll c, ll mx, ll Mx, ll my, ll My) {
+    if(!a && !b) return (c == 0) ? (Mx - mx + 1) * (My - my + 1) : 0;
+    if(!a) return (c % b == 0 && my <= c / b && c / b <= My) ? Mx - mx + 1 : 0;
+    if(!b) return (c % a == 0 && mx <= c / a && c / a <= Mx) ? My - my + 1 : 0;
+    auto [g, x, y] = egcd(abs(a), abs(b));
+    if (c % g) return 0;
+    x *= c / g;
+    y *= c / g;
+    if(a < 0) x = -x;
+    if(b < 0) y = -y;
+    ll L = -2e18, R = 2e18;
+    upd(L, R, mx, Mx, b / g, x);
+    upd(L, R, my, My, -a / g, y);
+    return max(0LL, R - L + 1);
+}
+// mx means min_x, Mx means max_x
+// my means min_y, My means max_y
+// TC = O(log(min(|a|,|b|))) & SC = O(1)
 
 int main() {
     
